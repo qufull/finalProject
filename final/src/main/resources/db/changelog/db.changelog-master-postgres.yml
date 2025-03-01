@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/create-users-table.sql
+  - include:
+      file: db/changelog/changeset/create-cred-table.sql
+  - include:
+      file: db/changelog/changeset/create-driver_licenses.sql
+  - include:
+      file: db/changelog/changeset/create-currencies.sql
+  - include:
+      file: db/changelog/changeset/create-payments.sql
+  - include:
+      file: db/changelog/changeset/create-roles.sql
+  - include:
+      file: db/changelog/changeset/create-user_roles.sql
+  - include:
+      file: db/changelog/changeset/create-cars.sql
+  - include:
+      file: db/changelog/changeset/create-reservations.sql
+  - include:
+      file: db/changelog/changeset/create-penalties.sql
+  - include:
+      file: db/changelog/changeset/create-trips.sql
+
+

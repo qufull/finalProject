@@ -1,0 +1,8 @@
+CREATE TABLE credentials (
+	id BIGSERIAL PRIMARY KEY,
+	user_id BIGINT REFERENCES users(id) UNIQUE,
+	username VARCHAR(100) NOT NULL,
+	password VARCHAR(128) NOT NULL,
+	email VARCHAR(100) NOT NULL
+	
+);
