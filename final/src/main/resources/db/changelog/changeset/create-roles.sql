@@ -4,3 +4,4 @@ CREATE TABLE roles (
 	id BIGSERIAL PRIMARY KEY,
 	role user_role NOT NULL
 );
+

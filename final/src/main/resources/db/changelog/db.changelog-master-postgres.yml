@@ -21,5 +21,7 @@ databaseChangeLog:
       file: db/changelog/changeset/create-penalties.sql
   - include:
       file: db/changelog/changeset/create-trips.sql
+  - include:
+      file: db/changelog/changeset/fill_roles.sql
 
 
