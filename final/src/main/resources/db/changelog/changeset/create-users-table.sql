@@ -6,6 +6,6 @@ CREATE TABLE users (
 	phone_number VARCHAR(15),
 	registration_date TIMESTAMP DEFAULT NOW()	,
 	status user_status DEFAULT 'ACTIVE',
-	balance DECIMAL(15,2) DEFAULT 0.0
-	
+	balance DECIMAL(15,2) DEFAULT 0.0,
+    currency VARCHAR(10) DEFAULT 'BYN'
 );

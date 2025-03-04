@@ -67,6 +67,10 @@ public class User implements UserDetails {
     @Column(name = "balance")
     private double balance;
 
+    @ColumnDefault("BYN")
+    @Column(name = "currency")
+    private String currency;
+
     @ColumnDefault("'ACTIVE'::user_status")
     @Enumerated
     @JdbcType(PostgreSQLEnumJdbcType.class)

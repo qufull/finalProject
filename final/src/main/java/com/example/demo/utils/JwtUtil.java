@@ -25,7 +25,6 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
 
-
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         if (userDetails instanceof User customUserDetails) {

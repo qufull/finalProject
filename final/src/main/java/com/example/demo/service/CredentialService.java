@@ -1,9 +1,14 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ChangePasswordDto;
+import com.example.demo.dto.UserDto;
+import com.example.demo.mapper.CredentialMapper;
 import com.example.demo.model.Credential;
 import com.example.demo.model.User;
 import com.example.demo.repository.CredentialRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

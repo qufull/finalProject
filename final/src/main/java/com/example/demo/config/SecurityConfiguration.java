@@ -45,6 +45,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/sign-up/**").permitAll()
                         .requestMatchers("/sign-in/**").permitAll()
+                        .requestMatchers("/profile/**").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider())
