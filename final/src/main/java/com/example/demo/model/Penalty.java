@@ -15,6 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -25,6 +26,7 @@ import java.time.Instant;
 @Entity
 @Builder
 @AllArgsConstructor
+@ToString
 @NoArgsConstructor
 @Table(name = "penalties")
 public class Penalty {
@@ -32,10 +34,6 @@ public class Penalty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "car_id")
-    private Car car;
 
     @Column(name = "amount", nullable = false)
     private double amount;
@@ -45,5 +43,16 @@ public class Penalty {
 
     @Column(name = "date_issued", nullable = false)
     private Timestamp dateIssued;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @JoinColumn(name = "reservation_id", nullable = false)
+    private Reservation reservation;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @JoinColumn(name = "car_id", nullable = false)
+    private Car car;
 
 }

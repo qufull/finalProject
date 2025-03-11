@@ -46,6 +46,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/sign-up/**").permitAll()
                         .requestMatchers("/sign-in/**").permitAll()
                         .requestMatchers("/profile/**").hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers("/reservation/**").hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider())

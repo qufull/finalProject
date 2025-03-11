@@ -4,19 +4,23 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SignUpRequest {
 
-    @NotBlank(message = "First name is required")
+    @NotBlank(message = "Имя обязательно")
     private String firstName;
 
-    @NotBlank(message = "Last name is required")
+    @NotBlank(message = "Фамилия обязательна")
     private String lastName;
 
-    @NotBlank(message = "Phone number is required")
-    @Pattern(regexp = "^\\+?\\d{10,15}$", message = "Phone number is invalid")
+    @NotBlank(message = "Номер телефона обязателен")
+    @Pattern(regexp = "^\\+?\\d{10,15}$", message = "Номер телефона недействителен")
     private String phoneNumber;
 
     @Size(min = 5, max = 50, message = "Имя пользователя должно содержать от 5 до 50 символов")

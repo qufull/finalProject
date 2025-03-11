@@ -9,11 +9,13 @@ import com.example.demo.service.AuthenticationService;
 import com.example.demo.service.DriverLicenseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
@@ -22,16 +24,25 @@ public class AuthController {
 
     @PostMapping("/sign-up")
     public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) {
-        return authenticationService.signUp(request);
+        log.info("Received sign-up request for username: {}", request.getUsername());
+        JwtAuthenticationResponse response = authenticationService.signUp(request);
+        log.info("User {} signed up successfully", request.getUsername());
+        return response;
     }
 
     @PostMapping("/sign-in")
     public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
-        return authenticationService.signIn(request);
+        log.info("Received sign-in request for username: {}", request.getUsername());
+        JwtAuthenticationResponse response = authenticationService.signIn(request);
+        log.info("User {} signed in successfully", request.getUsername());
+        return response;
     }
 
     @PostMapping("/sign-up/driverlicense")
     public DriverLicensDto addDriverLicense(@RequestBody @Valid DriverLicensDto driverLicensDto, @AuthenticationPrincipal User user) {
-        return driverLicenseService.createDriverLicense(driverLicensDto,user);
+        log.info("User {} is adding a driver license", user.getId());
+        DriverLicensDto createdDriverLicense = driverLicenseService.createDriverLicense(driverLicensDto, user);
+        log.info("Driver license added successfully for user {}", user.getId());
+        return createdDriverLicense;
     }
 }

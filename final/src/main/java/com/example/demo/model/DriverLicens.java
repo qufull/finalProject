@@ -46,9 +46,6 @@ public class DriverLicens {
     @Column(name = "have_b", nullable = false)
     private Boolean haveB = false;
 
-    @Column(name = "img", nullable = false, length = Integer.MAX_VALUE)
-    private String img;
-
     @OneToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     @JoinColumn(name = "user_id", nullable = false, unique = true)

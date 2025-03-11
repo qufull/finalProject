@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.example.demo.enums.ReservationStatus;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -18,6 +19,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.PostgreSQLEnumJdbcType;
@@ -37,10 +39,6 @@ public class Reservation {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "car_id")
-    private Car car;
-
     @ColumnDefault("now()")
     @Column(name = "start_time")
     private Timestamp startTime;
@@ -55,5 +53,15 @@ public class Reservation {
     @JdbcType(PostgreSQLEnumJdbcType.class)
     @Column(name = "status", columnDefinition = "reservation_status not null")
     private ReservationStatus status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @JoinColumn(name = "car_id", nullable = false)
+    private Car car;
 
 }
