@@ -39,49 +39,26 @@ public class UserController {
 
     @GetMapping
     public UserDto getProfile(@AuthenticationPrincipal User user) {
-        log.info("Fetching profile for user ID: {}", user.getId());
-        UserDto userDto = userService.getUser(user);
-        log.info("Successfully fetched profile for user ID: {}", user.getId());
-        return userDto;
+        return userService.getUser(user);
     }
 
     @PostMapping
     public UserDto updateProfile(@RequestBody UpdateUser userDto ,@AuthenticationPrincipal User user) {
-        log.info("Updating profile for user ID: {}", user.getId());
-        UserDto updatedUser = userService.updateUser(userDto,user);
-        log.info("Successfully updated profile for user ID: {}", user.getId());
-        return updatedUser;
+        return userService.updateUser(userDto,user);
     }
 
     @PostMapping("/change-password")
     public void changePassword(@RequestBody ChangePasswordDto changePasswordDto,@AuthenticationPrincipal User user) {
-        log.info("Changing password for user ID: {}", user.getId());
-        try {
-            userService.changePassword(changePasswordDto, user);
-            log.info("Successfully changed password for user ID: {}", user.getId());
-        } catch (Exception e) {
-            log.error("Error while changing password for user ID: {}", user.getId(), e);
-            throw new UserException("Failed to change password");
-        }
+        userService.changePassword(changePasswordDto, user);
     }
 
     @PostMapping("/deposit")
     public void deposit(@RequestBody DepositDto depositDto,@AuthenticationPrincipal User user) {
-        log.info("Depositing amount for user ID: {}. Amount: {}", user.getId(), depositDto.getAmount());
-        try {
-            balanceService.deposit(depositDto, user);
-            log.info("Successfully deposited amount for user ID: {}. Amount: {}", user.getId(), depositDto.getAmount());
-        } catch (Exception e) {
-            log.error("Error while depositing amount for user ID: {}", user.getId(), e);
-            throw new CredentialException("Failed to deposit amount");
-        }
+        balanceService.deposit(depositDto, user);
     }
 
     @GetMapping("/payments")
     public List<PaymentDto> getPayments(@AuthenticationPrincipal User user) {
-        log.info("Fetching payments for user ID: {}", user.getId());
-        List<PaymentDto> payments = paymentService.findAllByUserId(user);
-        log.info("Fetched {} payments for user ID: {}", payments.size(), user.getId());
-        return payments;
+        return paymentService.findAllByUserId(user);
     }
 }

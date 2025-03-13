@@ -32,9 +32,7 @@ public class PenaltyService {
     private final PenaltyRepository penaltyRepository;
     private final PenaltyMapper penaltyMapper;
     private final CarRepository carRepository;
-    private final ReservationRepository reservationRepository;
     private final CurrencyRepository currencyRepository;
-    private final UserRepository userRepository;
 
     public List<PenaltiesDto> getPenalties() {
         return penaltyMapper.toDtos(penaltyRepository.findAll());
@@ -42,21 +40,11 @@ public class PenaltyService {
 
     @Transactional
     public void createPenalty(Long carId, PenaltyDto dto) {
-        log.info("Creating penalty for car with id: {}", carId);
-
         Car car = carRepository.findCarWithReservationAndUserById(carId)
-                .orElseThrow(() ->
-                {
-                    log.error("Car not found with id: {}", carId);
-                    return new CarNotFoundException("Car not found with id: " + carId);
-                });
+                .orElseThrow(() -> new CarNotFoundException("Car not found with id: " + carId));
 
         Reservation reservation = car.getReservations().stream()
-                .findFirst().orElseThrow(() ->
-                {
-                    log.error("Reservation not found for car id: {}", carId);
-                    return new ReservationNotFoundException("Reservation not found");
-                });
+                .findFirst().orElseThrow(() -> new ReservationNotFoundException("Reservation not found"));
 
         User user = reservation.getUser();
 
@@ -69,17 +57,12 @@ public class PenaltyService {
                 .build();
 
         Currency currency = currencyRepository.findByCurrencyCode(user.getCurrency())
-                .orElseThrow(() ->
-                {
-                    log.error("Currency not found for user currency code: {}", user.getCurrency());
-                    return new CredentialNotFoundException("Currency not found");
-                });
+                .orElseThrow(() -> new CredentialNotFoundException("Currency not found"));
 
         double newBalance = user.getBalance() - currency.getExchangeRate() * dto.getAmount();
 
         user.setBalance(newBalance);
 
         penaltyRepository.save(penalty);
-        log.info("Penalty created successfully for user: {} with amount: {}", user.getId(), dto.getAmount());
     }
 }

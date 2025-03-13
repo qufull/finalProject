@@ -28,26 +28,11 @@ public class AdminPenaltyController {
 
     @GetMapping
     public List<PenaltiesDto> getPenalties() {
-        log.info("Received request to get all penalties");
-        try {
-            List<PenaltiesDto> penalties = penaltyService.getPenalties();
-            log.info("Successfully retrieved {} penalties", penalties.size());
-            return penalties;
-        } catch (Exception e) {
-            log.error("Error while retrieving penalties", e);
-            throw new PenaltyException("Failed to retrieve penalties");
-        }
+        return penaltyService.getPenalties();
     }
 
     @PostMapping("/{carId}")
     public void createPenalty(@PathVariable Long carId, @RequestBody PenaltyDto penaltyDto) {
-        log.info("Received request to create a penalty for car with id: {}", carId);
-        try {
-            penaltyService.createPenalty(carId, penaltyDto);
-            log.info("Successfully created penalty for car with id: {}", carId);
-        } catch (Exception e) {
-            log.error("Error while creating penalty for car with id: {}", carId, e);
-            throw new PenaltyException("Failed to create penalty");
-        }
+        penaltyService.createPenalty(carId, penaltyDto);
     }
 }

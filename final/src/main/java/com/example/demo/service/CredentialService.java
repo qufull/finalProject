@@ -19,17 +19,8 @@ public class CredentialService implements UserDetailsService {
     private final CredentialRepository credentialRepository;
 
     public Credential create(Credential credential) {
-        log.info("Creating a new credential");
-        try {
-
         Credential savedCred = credentialRepository.save(credential);
-        log.info("Credential created successfully with id: {}", savedCred.getId());
         return savedCred;
-
-    } catch (CredentialException e) {
-        log.error("Error creating a new credential", e);
-        throw new CredentialException("Failed to create credential");
-    }
     }
 
     @Override

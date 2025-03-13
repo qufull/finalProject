@@ -16,10 +16,6 @@ public class RoleService {
     private final RoleRepository roleRepository;
 
     public Role findByName(UserRoles role){
-        log.info("Searching for role: {}", role);
-        return roleRepository.findByRole(role).orElseThrow(() -> {
-            log.error("Role not found: {}", role);
-            return new RoleNotFoundException("Role not found");
-        });
+        return roleRepository.findByRole(role).orElseThrow(() -> new RoleNotFoundException("Role not found"));
     }
 }

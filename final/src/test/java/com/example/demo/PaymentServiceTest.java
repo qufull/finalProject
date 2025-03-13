@@ -88,7 +88,7 @@ public class PaymentServiceTest {
 
     @Test
     void testFindAllByUserId_Exception() {
-        when(paymentRepository.findByUserId(anyLong())).thenThrow(new RuntimeException("Unexpected error"));
+        when(paymentRepository.findByUserId(anyLong())).thenThrow(new PaymentException("Failed to fetch payments"));
 
         PaymentException exception = assertThrows(PaymentException.class, () -> {
             paymentService.findAllByUserId(user);

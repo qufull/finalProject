@@ -20,19 +20,10 @@ public class DriverLicenseService {
     private final DriverLicensMapper driverLicensMapper;
 
     public DriverLicensDto createDriverLicense(DriverLicensDto dto,User user) {
-        log.info("Creating driver license for user with id: {}", user.getId());
-        try {
-            DriverLicens driverLicens = driverLicensMapper.toDriverLicens(dto);
-            driverLicens.setUser(user);
-            driverLicens.setHaveB(true);
-            DriverLicens savedDriverLicens = driverLicenseRepository.save(driverLicens);
-            log.info("Driver license created successfully for user with id: {}", user.getId());
-
-            return driverLicensMapper.toDriverLicensDto(savedDriverLicens);
-        } catch (DriverLicenseCreationException e) {
-            log.error("Error creating driver license for user with id: {}", user.getId());
-            throw new DriverLicenseCreationException("Failed to create driver license for user with id: " + user.getId());
-        }
+        DriverLicens driverLicens = driverLicensMapper.toDriverLicens(dto);
+        driverLicens.setUser(user);
+        driverLicens.setHaveB(true);
+        DriverLicens savedDriverLicens = driverLicenseRepository.save(driverLicens);
+        return driverLicensMapper.toDriverLicensDto(savedDriverLicens);
     }
-
 }

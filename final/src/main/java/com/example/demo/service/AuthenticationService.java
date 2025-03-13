@@ -37,8 +37,6 @@ public class AuthenticationService {
 
     @Transactional
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
-        log.info("Starting sign-up process for user with username: {}", request.getUsername());
-        try{
         User user = User.builder()
                 .status(UserStatus.ACTIVE)
                 .firstName(request.getFirstName())
@@ -60,16 +58,10 @@ public class AuthenticationService {
         userService.create(user);
 
         String jwt = jwtUtil.generateToken(user);
-        log.info("User {} successfully signed up and JWT token generated", request.getUsername());
         return new JwtAuthenticationResponse(jwt);
-    } catch (UserCreateException e){
-            log.error("Error during sign-up process for user with username: {}", request.getUsername());
-            throw new UserCreateException("Failed to sign up user");
-        }
     }
 
     public JwtAuthenticationResponse signIn(SignInRequest request) {
-        log.info("Starting sign-in process for user with username: {}", request.getUsername());
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -80,14 +72,11 @@ public class AuthenticationService {
             User user = (User) authentication.getPrincipal();
 
             if (!user.getStatus().equals(UserStatus.ACTIVE)) {
-                log.warn("User {} is blocked and cannot sign in", request.getUsername());
                 throw new UserException("User is Blocked");
             }
             String jwt = jwtUtil.generateToken(user);
-            log.info("User {} successfully signed in and JWT token generated", request.getUsername());
             return new JwtAuthenticationResponse(jwt);
         } catch (BadCredentialsException e) {
-            log.error("Invalid username or password for user: {}", request.getUsername(), e);
             throw new UserException("Invalid username or password");
         }
     }

@@ -24,25 +24,16 @@ public class AuthController {
 
     @PostMapping("/sign-up")
     public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) {
-        log.info("Received sign-up request for username: {}", request.getUsername());
-        JwtAuthenticationResponse response = authenticationService.signUp(request);
-        log.info("User {} signed up successfully", request.getUsername());
-        return response;
+        return authenticationService.signUp(request);
     }
 
     @PostMapping("/sign-in")
     public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
-        log.info("Received sign-in request for username: {}", request.getUsername());
-        JwtAuthenticationResponse response = authenticationService.signIn(request);
-        log.info("User {} signed in successfully", request.getUsername());
-        return response;
+        return authenticationService.signIn(request);
     }
 
     @PostMapping("/sign-up/driverlicense")
     public DriverLicensDto addDriverLicense(@RequestBody @Valid DriverLicensDto driverLicensDto, @AuthenticationPrincipal User user) {
-        log.info("User {} is adding a driver license", user.getId());
-        DriverLicensDto createdDriverLicense = driverLicenseService.createDriverLicense(driverLicensDto, user);
-        log.info("Driver license added successfully for user {}", user.getId());
-        return createdDriverLicense;
+        return driverLicenseService.createDriverLicense(driverLicensDto, user);
     }
 }

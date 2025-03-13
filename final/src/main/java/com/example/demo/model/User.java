@@ -86,7 +86,7 @@ public class User implements UserDetails {
     )
     private List<Role> roles;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private Credential credential;
 

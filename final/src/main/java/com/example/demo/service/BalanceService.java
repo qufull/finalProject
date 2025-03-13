@@ -28,10 +28,6 @@ public class BalanceService {
 
     @Transactional
     public void deposit(DepositDto dto,User user) {
-
-        log.info("Starting deposit process for user with id: {}", user.getId());
-
-        try {
             Currency currency = currencyRepository.findByCurrencyCode(dto.getCurrencyCode())
                     .orElseThrow(() ->
                     {
@@ -39,18 +35,11 @@ public class BalanceService {
                         return new CredentialNotFoundException("Currency not found");
                     });
 
-            log.debug("Currency found: {}", currency.getCurrencyCode());
-
             double convertedAmount = dto.getAmount() * currency.getExchangeRate();
-
-            log.debug("Converted amount: {} (original amount: {}, exchange rate: {})",
-                    convertedAmount, dto.getAmount(), currency.getExchangeRate());
 
             double newBalance = user.getBalance() + convertedAmount;
             user.setBalance(newBalance);
             userRepository.save(user);
-
-            log.info("Balance updated for user with id: {}. New balance: {}", user.getId(), newBalance);
 
             Payment payment = Payment.builder()
                     .user(user)
@@ -62,10 +51,5 @@ public class BalanceService {
                     .build();
 
             paymentRepository.save(payment);
-            log.info("Payment record created for user with id: {}", user.getId());
-        } catch (CredentialNotFoundException e) {
-            log.error("Currency not found for user with id: {}", user.getId(), e);
-            throw new CredentialNotFoundException("Currency not found");
-        }
     }
 }

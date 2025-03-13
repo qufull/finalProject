@@ -26,32 +26,19 @@ public class ReservationController {
     private final CarService carService;
     private final ReservationService reservationService;
 
-    @GetMapping
-    public List<AvailableCarDto> getAvailableCars() {
-        log.info("Fetching available cars");
-        List<AvailableCarDto> availableCars = carService.getAvailableCars();
-        log.info("Fetched {} available cars", availableCars.size());
-        return availableCars;
+    @GetMapping("/{rentalPointId}")
+    public List<AvailableCarDto> getAvailableCars(@PathVariable Long rentalPointId) {
+        return carService.getAvailableCars(rentalPointId);
     }
 
-    @PostMapping("/{carId}")
-    public void startReservation(@AuthenticationPrincipal User user, @PathVariable Long carId) {
-        log.info("User {} is attempting to start a reservation for car ID: {}", user.getId(), carId);
-        try {
-            reservationService.startReservation(user, carId);
-            log.info("Successfully started reservation for user {} and car ID: {}", user.getId(), carId);
-        } catch (Exception e) {
-            log.error("Error while starting reservation for user {} and car ID: {}", user.getId(), carId, e);
-            throw new ReservationException("Failed to start reservation");
-        }
+    @PostMapping("/{rentalPointId}/{carId}")
+    public void startReservation(@AuthenticationPrincipal User user, @PathVariable Long rentalPointId, @PathVariable Long carId) {
+        reservationService.startReservation(user, carId, rentalPointId);
     }
 
-    @PostMapping("/end")
-    public EndReservationDto endReservation(@AuthenticationPrincipal User user) {
-        log.info("User {} is attempting to end their reservation", user.getId());
-        EndReservationDto endReservationDto = reservationService.endReservation(user);
-        log.info("Successfully ended reservation for user {}", user.getId());
-        return endReservationDto;
+    @PostMapping("/end/{rentalPointId}")
+    public EndReservationDto endReservation(@AuthenticationPrincipal User user, @PathVariable Long rentalPointId) {
+        return reservationService.endReservation(user,rentalPointId);
     }
 }
 

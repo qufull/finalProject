@@ -63,7 +63,7 @@ public class CredentialServiceTest {
 
     @Test
     void testCreateCredential_Exception() {
-        when(credentialRepository.save(any(Credential.class))).thenThrow(new CredentialException("Failed to save"));
+        when(credentialRepository.save(any(Credential.class))).thenThrow(new CredentialException("Failed to create credential"));
 
         CredentialException exception = assertThrows(CredentialException.class, () -> {
             credentialService.create(credential);

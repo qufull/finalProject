@@ -26,52 +26,21 @@ public class AdminCarController {
 
     @GetMapping
     public List<AvailableCarDto> getCars() {
-        log.info("Received request to get all cars");
-        try {
-            List<AvailableCarDto> cars = carService.getAll();
-            log.info("Successfully retrieved {} cars", cars.size());
-            return cars;
-        } catch (Exception e) {
-            log.error("Error while retrieving cars", e);
-            throw new CarException("Failed to retrieve cars");
-        }
+        return carService.getAll();
     }
 
     @PostMapping
     public AvailableCarDto createCar(@RequestBody AvailableCarDto carDto) {
-        log.info("Received request to create a new car with details: {}", carDto);
-        try {
-            AvailableCarDto createdCar = carService.create(carDto);
-            log.info("Successfully created car");
-            return createdCar;
-        } catch (Exception e) {
-            log.error("Error while creating a new car", e);
-            throw new CarException("Failed to create car");
-        }
+        return carService.create(carDto);
     }
 
     @PostMapping("/{id}")
     public AvailableCarDto updateCar(@PathVariable Long id, @RequestBody UpdateCarDto carDto) {
-        log.info("Received request to update car with id: {}", id);
-        try {
-            AvailableCarDto updatedCar = carService.update(id, carDto);
-            log.info("Successfully updated car");
-            return updatedCar;
-        } catch (Exception e) {
-            log.error("Error while updating car with id: {}", id, e);
-            throw new CarException("Failed to update car");
-        }
+        return carService.update(id, carDto);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCar(@PathVariable Long id) {
-        log.info("Received request to delete car with id: {}", id);
-        try {
-            carService.delete(id);
-            log.info("Successfully deleted car with id: {}", id);
-        } catch (Exception e) {
-            log.error("Error while deleting car with id: {}", id, e);
-            throw new CarException("Failed to delete car");
-        }
+        carService.delete(id);
     }
 }

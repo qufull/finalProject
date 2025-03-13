@@ -29,33 +29,16 @@ public class AdminUserController {
 
     @GetMapping
     public List<AdminPanelUserDto> getUsers(@AuthenticationPrincipal User user) {
-        log.info("Admin {} is fetching all users", user.getId());
-        List<AdminPanelUserDto> users = userService.getAdminPanelUsers(user.getId());
-        log.info("Fetched {} users for admin {}", users.size(), user.getId());
-        return users;
+        return userService.getAdminPanelUsers(user.getId());
     }
 
     @PostMapping("/status/{id}")
     public void changeUserStatus(@PathVariable Long id, @RequestBody UserStatusDto dto) {
-        log.info("Admin {} is changing status for user.", id);
-        try {
-            userService.updateUserStatus(id, dto);
-            log.info("Successfully changed status for user with ID: {}", id);
-        }catch (Exception e){
-            log.error("Error while changing status for user with ID: {}", id, e);
-            throw new UserException("Failed to change user status");
-        }
+        userService.updateUserStatus(id, dto);
     }
 
     @PostMapping("/roles/{id}")
     public void changeUserRoles(@PathVariable Long id, @RequestBody UserRoleDto dto){
-        log.info("Admin is changing roles for user with ID: {}", id);
-        try {
-            userService.updateUserRoles(id, dto);
-            log.info("Successfully changed roles for user with ID: {}", id);
-        }catch (Exception e){
-            log.error("Error while changing roles for user with ID: {}", id, e);
-            throw new UserException("Failed to change user roles");
-        }
+        userService.updateUserRoles(id, dto);
     }
 }

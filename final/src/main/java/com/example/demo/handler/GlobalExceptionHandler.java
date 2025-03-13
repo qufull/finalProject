@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.handler;
 
 import com.example.demo.dto.ErrorResponse;
 import com.example.demo.dto.ValidationErrorResponse;

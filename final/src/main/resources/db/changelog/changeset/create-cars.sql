@@ -8,5 +8,6 @@ CREATE TABLE cars (
                       year VARCHAR(5) NOT NULL,
                       status car_status NOT NULL,
                       type car_type NOT NULL,
-                      price_per_minute DECIMAL(5,2) NOT NULL
+                      price_per_minute DECIMAL(5,2) NOT NULL,
+                      rental_point_id BIGINT REFERENCES rental_points(id)
 );

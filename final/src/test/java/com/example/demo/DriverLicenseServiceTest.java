@@ -79,13 +79,13 @@ public class DriverLicenseServiceTest {
 
     @Test
     void testCreateDriverLicense_Exception() {
-        when(driverLicensMapper.toDriverLicens(any(DriverLicensDto.class))).thenThrow(new DriverLicenseCreationException("Failed to map"));
+        when(driverLicensMapper.toDriverLicens(any(DriverLicensDto.class))).thenThrow(new DriverLicenseCreationException("Failed to create driver license"));
 
         DriverLicenseCreationException exception = assertThrows(DriverLicenseCreationException.class, () -> {
             driverLicenseService.createDriverLicense(driverLicensDto, user);
         });
 
-        assertEquals("Failed to create driver license for user with id: 1", exception.getMessage());
+        assertEquals("Failed to create driver license",exception.getMessage() );
         verify(driverLicenseRepository, never()).save(any(DriverLicens.class));
     }
 }

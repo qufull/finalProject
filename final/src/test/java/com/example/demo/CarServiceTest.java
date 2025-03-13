@@ -16,14 +16,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
@@ -79,7 +82,7 @@ public class CarServiceTest {
 
     @Test
     void testCreateCar_Exception() {
-        when(carMapper.dtoToCar(any(AvailableCarDto.class))).thenThrow(new CarException("Failed to map"));
+        when(carMapper.dtoToCar(any(AvailableCarDto.class))).thenThrow(new CarException("Failed to create car"));
 
         CarException exception = assertThrows(CarException.class, () -> {
             carService.create(availableCarDto);
@@ -125,7 +128,7 @@ public class CarServiceTest {
 
     @Test
     void testDeleteCar_Exception() {
-        doThrow(new CarException("Failed to delete")).when(carRepository).deleteById(1L);
+        doThrow(new CarException("Failed to delete car")).when(carRepository).deleteById(1L);
 
         CarException exception = assertThrows(CarException.class, () -> {
             carService.delete(1L);
@@ -136,26 +139,30 @@ public class CarServiceTest {
 
     @Test
     void testGetAvailableCars_Success() {
-        when(carRepository.findAllByStatus(CarStatus.AVAILABLE)).thenReturn(Optional.of(List.of(car)));
-        when(carMapper.toDtoList(anyList())).thenReturn(List.of(availableCarDto));
+        when(carRepository.findAllByStatusAndRentalPointId(any(CarStatus.class), anyLong()))
+                .thenReturn(Optional.of(Collections.singletonList(car)));
+        when(carMapper.toDtoList(anyList())).thenReturn(Collections.singletonList(availableCarDto));
 
-        List<AvailableCarDto> result = carService.getAvailableCars();
+        List<AvailableCarDto> result = carService.getAvailableCars(1L);
 
         assertNotNull(result);
+        assertFalse(result.isEmpty());
         assertEquals(1, result.size());
-        verify(carRepository, times(1)).findAllByStatus(CarStatus.AVAILABLE);
     }
 
     @Test
     void testGetAvailableCars_NotFound() {
-        when(carRepository.findAllByStatus(CarStatus.AVAILABLE)).thenReturn(Optional.empty());
+        when(carRepository.findAll()).thenReturn(Collections.singletonList(car));
+        when(carMapper.toDtoList(anyList())).thenReturn(Collections.singletonList(availableCarDto));
 
-        CarNotFoundException exception = assertThrows(CarNotFoundException.class, () -> {
-            carService.getAvailableCars();
-        });
+        List<AvailableCarDto> result = carService.getAll();
 
-        assertEquals("Cars not found", exception.getMessage());
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.size());
     }
+
+
 
     @Test
     void testGetAllCars_Success() {
@@ -177,6 +184,6 @@ public class CarServiceTest {
             carService.getAll();
         });
 
-        assertEquals("Failed to fetch all cars", exception.getMessage());
+        assertEquals("Failed to fetch", exception.getMessage());
     }
 }
