@@ -120,6 +120,7 @@ public class CarServiceTest {
     @Test
     void testDeleteCar_Success() {
         doNothing().when(carRepository).deleteById(1L);
+        when(carRepository.findById(1L)).thenReturn(Optional.of(car));
 
         carService.delete(1L);
 
@@ -128,13 +129,11 @@ public class CarServiceTest {
 
     @Test
     void testDeleteCar_Exception() {
-        doThrow(new CarException("Failed to delete car")).when(carRepository).deleteById(1L);
-
-        CarException exception = assertThrows(CarException.class, () -> {
+        CarNotFoundException exception = assertThrows(CarNotFoundException.class, () -> {
             carService.delete(1L);
         });
 
-        assertEquals("Failed to delete car", exception.getMessage());
+        assertEquals("Car not found", exception.getMessage());
     }
 
     @Test

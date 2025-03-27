@@ -16,6 +16,7 @@ import java.util.List;
 
 import com.example.demo.controller.AdminCarController;
 import com.example.demo.dto.AvailableCarDto;
+import com.example.demo.dto.CarDto;
 import com.example.demo.dto.UpdateCarDto;
 import com.example.demo.service.CarService;
 import org.junit.jupiter.api.BeforeEach;
@@ -100,8 +101,9 @@ public class AdminCarControllerTest {
     @Test
     public void testDeleteCar() throws Exception {
         Long id = 1L;
+        CarDto carDto = new CarDto();
 
-        doNothing().when(carService).delete(anyLong());
+        when(carService.delete(anyLong())).thenReturn(carDto);
 
         mockMvc.perform(delete("/admin/cars/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON))

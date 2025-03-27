@@ -14,6 +14,7 @@ import java.util.List;
 import com.example.demo.controller.ReservationController;
 import com.example.demo.dto.AvailableCarDto;
 import com.example.demo.dto.EndReservationDto;
+import com.example.demo.dto.StartReservationDto;
 import com.example.demo.model.User;
 import com.example.demo.service.CarService;
 import com.example.demo.service.ReservationService;
@@ -72,17 +73,16 @@ public class ReservationControllerTest {
     // Тест для метода startReservation
     @Test
     public void testStartReservation() throws Exception {
-        // Подготовка данных
         Long rentalPointId = 1L;
         Long carId = 1L;
 
         User user = new User();
         user.setId(1L);
 
-        // Мокирование сервиса
-        doNothing().when(reservationService).startReservation(any(User.class), anyLong(), anyLong());
+        StartReservationDto startReservationDto = new StartReservationDto();
 
-        // Выполнение запроса и проверка результата
+        when(reservationService.startReservation(any(User.class), anyLong(), anyLong())).thenReturn(startReservationDto);
+
         mockMvc.perform(post("/reservation/{rentalPointId}/{carId}", rentalPointId, carId)
                         .contentType(MediaType.APPLICATION_JSON)) // Аутентификация
                 .andExpect(status().isOk());

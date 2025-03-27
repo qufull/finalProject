@@ -123,7 +123,7 @@ public class UserControllerTest {
         User user = new User();
         user.setId(1L);
 
-        doNothing().when(balanceService).deposit(any(DepositDto.class), any(User.class));
+        when(balanceService.deposit(any(DepositDto.class), any(User.class))).thenReturn(depositDto);
 
 
         mockMvc.perform(post("/profile/deposit")

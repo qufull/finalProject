@@ -38,6 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
@@ -59,6 +60,9 @@ public class ReservationServiceTest {
 
     @Mock
     private RentalPointRepository rentalPointRepository;
+
+    @Mock
+    private ReservationMapper reservationMapper;
 
     @InjectMocks
     private ReservationService reservationService;
@@ -189,23 +193,27 @@ public class ReservationServiceTest {
     @Test
     void endReservation_ShouldEndReservation_WhenAllConditionsAreMet() {
         car.setStatus(CarStatus.RENTED);
+        user.setCurrency("USD");
 
         long currentTimeMillis = System.currentTimeMillis();
         reservation.setStartTime(new Timestamp(currentTimeMillis - Duration.ofMinutes(10).toMillis()));
 
-        reservation.setEndTime(new Timestamp(currentTimeMillis));
+        when(reservationRepository.findFirstByUserIdOrderByIdDesc(user.getId()))
+                .thenReturn(Optional.of(reservation));
+        when(rentalPointRepository.findById(rentalPoint.getId()))
+                .thenReturn(Optional.of(rentalPoint));
+        when(currencyRepository.findByCurrencyCode(user.getCurrency()))
+                .thenReturn(Optional.of(currency));
+        when(reservationMapper.toEndReservationDto(anyDouble()))
+                .thenReturn(new EndReservationDto(5.0));
 
-        when(reservationRepository.findFirstByUserIdOrderByIdDesc(1L)).thenReturn(Optional.of(reservation));
-        when(rentalPointRepository.findById(1L)).thenReturn(Optional.of(rentalPoint));
-        when(currencyRepository.findByCurrencyCode("USD")).thenReturn(Optional.of(currency));
-        when(reservationRepository.save(any(Reservation.class))).thenReturn(reservation);
+        EndReservationDto result = reservationService.endReservation(user, rentalPoint.getId());
 
-        EndReservationDto result = reservationService.endReservation(user, 1L);
 
-        verify(reservationRepository, times(1)).findFirstByUserIdOrderByIdDesc(1L);
-        verify(rentalPointRepository, times(1)).findById(1L);
-        verify(currencyRepository, times(1)).findByCurrencyCode("USD");
-        verify(reservationRepository, times(1)).save(any(Reservation.class));
+        verify(reservationRepository).findFirstByUserIdOrderByIdDesc(user.getId());
+        verify(rentalPointRepository).findById(rentalPoint.getId());
+        verify(currencyRepository).findByCurrencyCode(user.getCurrency());
+        verify(reservationRepository).save(reservation);
 
         assertEquals(CarStatus.AVAILABLE, car.getStatus());
         assertEquals(ReservationStatus.COMPLETED, reservation.getStatus());

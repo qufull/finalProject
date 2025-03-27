@@ -66,9 +66,9 @@ public class AdminPenaltyControllerTest {
     @Test
     public void testCreatePenalty() throws Exception {
         Long carId = 1L;
-        PenaltyDto penaltyDto = new PenaltyDto();
+         PenaltyDto penaltyDto = new PenaltyDto();
 
-        doNothing().when(penaltyService).createPenalty(anyLong(), any(PenaltyDto.class));
+        when(penaltyService.createPenalty(anyLong(), any(PenaltyDto.class))).thenReturn(penaltyDto);
 
         mockMvc.perform(post("/admin/penalty/{carId}", carId)
                         .contentType(MediaType.APPLICATION_JSON)

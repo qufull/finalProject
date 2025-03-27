@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.dto.DepositDto;
 import com.example.demo.exception.CredentialNotFoundException;
+import com.example.demo.mapper.PaymentMapper;
 import com.example.demo.model.Currency;
 import com.example.demo.model.Payment;
 import com.example.demo.model.User;
@@ -37,6 +38,9 @@ public class BalanceServiceTest {
     @Mock
     private PaymentRepository paymentRepository;
 
+    @Mock
+    private PaymentMapper paymentMapper;
+
     @InjectMocks
     private BalanceService balanceService;
 
@@ -62,6 +66,7 @@ public class BalanceServiceTest {
     @Test
     void testDeposit_Success() {
         when(currencyRepository.findByCurrencyCode("USD")).thenReturn(Optional.of(currency));
+        when(userRepository.findUserWithCredentialsById(any(Long.class))).thenReturn(Optional.of(user));
         when(userRepository.save(any(User.class))).thenReturn(user);
         when(paymentRepository.save(any(Payment.class))).thenReturn(new Payment());
 
@@ -91,6 +96,7 @@ public class BalanceServiceTest {
     void testDeposit_WithDifferentExchangeRate() {
         currency.setExchangeRate(1.5);
         when(currencyRepository.findByCurrencyCode("USD")).thenReturn(Optional.of(currency));
+        when(userRepository.findUserWithCredentialsById(any(Long.class))).thenReturn(Optional.of(user));
         when(userRepository.save(any(User.class))).thenReturn(user);
         when(paymentRepository.save(any(Payment.class))).thenReturn(new Payment());
 
