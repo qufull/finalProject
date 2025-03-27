@@ -23,5 +23,16 @@ databaseChangeLog:
       file: db/changelog/changeset/create-penalties.sql
   - include:
       file: db/changelog/changeset/fill_roles.sql
+  - include:
+      file: db/changelog/changeset/fill_user.sql
+  - include:
+      file: db/changelog/changeset/fill_cred.sql
+  - include:
+      file: db/changelog/changeset/fill_user_roles.sql
+  - include:
+      file: db/changelog/changeset/fill_rental_points.sql
+  - include:
+      file: db/changelog/changeset/fill_cars.sql
+
 
 

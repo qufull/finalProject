@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  final:
+    build: .
+    container_name: Final
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/final
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_LIQUIBASE_ENABLED=true
+      - SPRING_LIQUIBASE_CHANGE_LOG=classpath:/db/changelog/db.changelog-master-postgres.yml
+      - SPRING_JPA_SHOW_SQL=true
+      - TOKEN_SIGNING_KEY=53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:latest
+    container_name: Postgres
+    environment:
+      - POSTGRES_DB=final
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
