@@ -23,7 +23,6 @@ import java.util.List;
 @RequestMapping("/admin/penalty")
 public class AdminPenaltyController {
 
-
     private final PenaltyService penaltyService;
 
     @GetMapping
@@ -32,7 +31,7 @@ public class AdminPenaltyController {
     }
 
     @PostMapping("/{carId}")
-    public void createPenalty(@PathVariable Long carId, @RequestBody PenaltyDto penaltyDto) {
-        penaltyService.createPenalty(carId, penaltyDto);
+    public PenaltyDto createPenalty(@PathVariable Long carId, @RequestBody PenaltyDto penaltyDto) {
+        return penaltyService.createPenalty(carId, penaltyDto);
     }
 }

@@ -39,7 +39,7 @@ public class PenaltyService {
     }
 
     @Transactional
-    public void createPenalty(Long carId, PenaltyDto dto) {
+    public PenaltyDto createPenalty(Long carId, PenaltyDto dto) {
         Car car = carRepository.findCarWithReservationAndUserById(carId)
                 .orElseThrow(() -> new CarNotFoundException("Car not found with id: " + carId));
 
@@ -63,6 +63,7 @@ public class PenaltyService {
 
         user.setBalance(newBalance);
 
-        penaltyRepository.save(penalty);
+
+        return penaltyMapper.toPenaltyDto(penaltyRepository.save(penalty));
     }
 }

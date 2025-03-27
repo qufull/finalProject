@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.AvailableCarDto;
+import com.example.demo.dto.CarDto;
 import com.example.demo.dto.UpdateCarDto;
 import com.example.demo.enums.CarStatus;
 import com.example.demo.exception.CarException;
@@ -11,6 +12,7 @@ import com.example.demo.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -37,8 +39,11 @@ public class CarService {
         return carMapper.toDto(updatedCar);
     }
 
-    public void delete(Long id) {
+    public CarDto delete(Long id) {
+        Car car = carRepository.findById(id)
+                .orElseThrow(() -> new CarNotFoundException("Car not found"));
         carRepository.deleteById(id);
+        return carMapper.toCarDto(car);
     }
 
     public List<AvailableCarDto> getAvailableCars(Long rentalPointId) {

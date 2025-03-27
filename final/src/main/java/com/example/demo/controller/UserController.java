@@ -53,8 +53,8 @@ public class UserController {
     }
 
     @PostMapping("/deposit")
-    public void deposit(@RequestBody DepositDto depositDto,@AuthenticationPrincipal User user) {
-        balanceService.deposit(depositDto, user);
+    public DepositDto deposit(@RequestBody DepositDto depositDto,@AuthenticationPrincipal User user) {
+        return balanceService.deposit(depositDto, user);
     }
 
     @GetMapping("/payments")

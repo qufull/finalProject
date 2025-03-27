@@ -4,6 +4,8 @@ import com.example.demo.dto.DepositDto;
 import com.example.demo.enums.PaymentStatus;
 import com.example.demo.enums.PaymentType;
 import com.example.demo.exception.CredentialNotFoundException;
+import com.example.demo.exception.UserNotFoundException;
+import com.example.demo.mapper.PaymentMapper;
 import com.example.demo.model.Currency;
 import com.example.demo.model.Payment;
 import com.example.demo.model.User;
@@ -25,9 +27,10 @@ public class BalanceService {
     private final UserRepository userRepository;
     private final CurrencyRepository currencyRepository;
     private final PaymentRepository paymentRepository;
+    private final PaymentMapper paymentMapper;
 
     @Transactional
-    public void deposit(DepositDto dto,User user) {
+    public DepositDto deposit(DepositDto dto,User user) {
             Currency currency = currencyRepository.findByCurrencyCode(dto.getCurrencyCode())
                     .orElseThrow(() ->
                     {
@@ -38,8 +41,11 @@ public class BalanceService {
             double convertedAmount = dto.getAmount() * currency.getExchangeRate();
 
             double newBalance = user.getBalance() + convertedAmount;
-            user.setBalance(newBalance);
-            userRepository.save(user);
+
+            User newUser = userRepository.findUserWithCredentialsById(user.getId())
+                    .orElseThrow(() -> new UserNotFoundException("User not found"));
+            newUser.setBalance(newBalance);
+            userRepository.save(newUser);
 
             Payment payment = Payment.builder()
                     .user(user)
@@ -51,5 +57,7 @@ public class BalanceService {
                     .build();
 
             paymentRepository.save(payment);
+
+            return paymentMapper.toDepositDto(convertedAmount,dto.getCurrencyCode());
     }
 }

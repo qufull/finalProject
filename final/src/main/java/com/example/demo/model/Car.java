@@ -67,7 +67,11 @@ public class Car {
     @ToString.Exclude
     private List<Reservation> reservations;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy ="car", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Penalty> penalties;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rental_point_id")
     @ToString.Exclude
     private RentalPoint rentalPoint;

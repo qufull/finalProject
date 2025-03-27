@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AvailableCarDto;
+import com.example.demo.dto.CarDto;
 import com.example.demo.dto.UpdateCarDto;
 import com.example.demo.exception.CarException;
 import com.example.demo.service.CarService;
@@ -40,7 +41,7 @@ public class AdminCarController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCar(@PathVariable Long id) {
-        carService.delete(id);
+    public CarDto deleteCar(@PathVariable Long id) {
+        return carService.delete(id);
     }
 }

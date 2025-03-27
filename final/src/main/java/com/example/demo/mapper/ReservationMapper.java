@@ -1,13 +1,26 @@
 package com.example.demo.mapper;
 
 import com.example.demo.dto.EndReservationDto;
+import com.example.demo.dto.StartReservationDto;
+import com.example.demo.model.Car;
+import com.example.demo.model.Currency;
 import com.example.demo.model.Reservation;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ReservationMapper {
-    @Mapping(source = "totalCost",target = "totalCost")
-    EndReservationDto toEndReservationDto(Reservation reservation);
+
+    @Mapping(target = "totalCost", source = "amount")
+    EndReservationDto toEndReservationDto(Double amount) ;
+
+    @Mapping(target = "make", source = "car.make")
+    @Mapping(target = "model", source = "car.model")
+    @Mapping(target = "year", source = "car.year")
+    @Mapping(target = "type", source = "car.type")
+    @Mapping(target = "startTime", source = "startTime")
+    StartReservationDto toStartReservationDto(Reservation reservation) ;
 }

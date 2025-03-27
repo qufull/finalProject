@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.dto.AvailableCarDto;
+import com.example.demo.dto.CarDto;
 import com.example.demo.dto.UpdateCarDto;
 import com.example.demo.dto.UpdateUser;
 import com.example.demo.model.Car;
@@ -28,5 +29,8 @@ public interface CarMapper {
     @Mapping(target = "status", source = "status")
     AvailableCarDto toDto(Car car);
     List<AvailableCarDto> toDtoList(List<Car> cars);
+
+
+    CarDto toCarDto(Car car);
 
 }

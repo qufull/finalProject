@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.dto.PenaltiesDto;
+import com.example.demo.dto.PenaltyDto;
 import com.example.demo.model.Penalty;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,5 +18,8 @@ public interface PenaltyMapper {
     PenaltiesDto toDto(Penalty penalty);
 
     List<PenaltiesDto> toDtos(List<Penalty> penalties);
+
+
+    PenaltyDto toPenaltyDto(Penalty penalty);
 
 }

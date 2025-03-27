@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.EndReservationDto;
+import com.example.demo.dto.StartReservationDto;
 import com.example.demo.enums.CarStatus;
 import com.example.demo.enums.ReservationStatus;
 import com.example.demo.exception.CarNotAvailableException;
@@ -39,9 +40,10 @@ public class ReservationService {
     public final CarRepository carRepository;
     private final CurrencyRepository currencyRepository;
     private final RentalPointRepository rentalPointRepository;
+    private final ReservationMapper reservationMapper;
 
     @Transactional
-    public void startReservation(User user, Long carId, Long rentalPointId){
+    public StartReservationDto startReservation(User user, Long carId, Long rentalPointId){
         if(user.getBalance()<=0){
             throw new UserException("Balance is negative");
         }
@@ -71,6 +73,8 @@ public class ReservationService {
                 .build();
 
         reservationRepository.save(reservation);
+
+        return reservationMapper.toStartReservationDto(reservation);
     }
 
     @Transactional
@@ -112,12 +116,14 @@ public class ReservationService {
         Currency currency = currencyRepository.findByCurrencyCode(rentUser.getCurrency())
                 .orElseThrow(() ->  new CredentialNotFoundException("Currency not found"));
 
-        double newBalance = user.getBalance() - currency.getExchangeRate() * amount;
+        double totalCost = amount * currency.getExchangeRate();
+
+        double newBalance = user.getBalance() - totalCost;
 
         rentUser.setBalance(newBalance);
 
         reservationRepository.save(reservation);
 
-        return new EndReservationDto(currency.getExchangeRate() * amount);
+        return reservationMapper.toEndReservationDto(totalCost);
     }
 }
