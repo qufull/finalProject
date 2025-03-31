@@ -26,7 +26,6 @@ import java.time.Instant;
 @Entity
 @Builder
 @AllArgsConstructor
-@ToString
 @NoArgsConstructor
 @Table(name = "penalties")
 public class Penalty {
@@ -46,12 +45,10 @@ public class Penalty {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
     @JoinColumn(name = "reservation_id", nullable = false)
     private Reservation reservation;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
     @JoinColumn(name = "car_id", nullable = false)
     private Car car;
 

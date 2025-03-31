@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
-import com.example.demo.enums.PaymentStatus;
-import com.example.demo.enums.PaymentType;
+import com.example.demo.model.enums.PaymentStatus;
+import com.example.demo.model.enums.PaymentType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -11,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,9 +22,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.Instant;
 
 @Getter
 @Setter
@@ -58,7 +55,6 @@ public class Payment {
     private PaymentStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

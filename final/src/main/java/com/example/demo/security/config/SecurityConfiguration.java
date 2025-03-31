@@ -1,6 +1,6 @@
-package com.example.demo.config;
+package com.example.demo.security.config;
 
-import com.example.demo.filter.JwtAuthenticationFilter;
+import com.example.demo.security.filter.JwtAuthenticationFilter;
 import com.example.demo.service.CredentialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

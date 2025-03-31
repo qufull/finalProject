@@ -3,8 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.dto.AdminPanelUserDto;
 import com.example.demo.dto.UserRoleDto;
 import com.example.demo.dto.UserStatusDto;
-import com.example.demo.enums.UserStatus;
-import com.example.demo.exception.UserException;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/users")

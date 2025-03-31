@@ -3,8 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.AvailableCarDto;
 import com.example.demo.dto.CarDto;
 import com.example.demo.dto.UpdateCarDto;
-import com.example.demo.enums.CarStatus;
-import com.example.demo.exception.CarException;
+import com.example.demo.model.enums.CarStatus;
 import com.example.demo.exception.CarNotFoundException;
 import com.example.demo.mapper.CarMapper;
 import com.example.demo.model.Car;
@@ -12,11 +11,9 @@ import com.example.demo.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CarService {

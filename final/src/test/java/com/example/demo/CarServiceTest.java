@@ -2,7 +2,7 @@ package com.example.demo;
 
 import com.example.demo.dto.AvailableCarDto;
 import com.example.demo.dto.UpdateCarDto;
-import com.example.demo.enums.CarStatus;
+import com.example.demo.model.enums.CarStatus;
 import com.example.demo.exception.CarException;
 import com.example.demo.exception.CarNotFoundException;
 import com.example.demo.mapper.CarMapper;

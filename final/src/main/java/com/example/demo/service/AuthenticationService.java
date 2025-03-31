@@ -3,13 +3,12 @@ package com.example.demo.service;
 import com.example.demo.dto.JwtAuthenticationResponse;
 import com.example.demo.dto.SignInRequest;
 import com.example.demo.dto.SignUpRequest;
-import com.example.demo.enums.UserRoles;
-import com.example.demo.enums.UserStatus;
-import com.example.demo.exception.UserCreateException;
+import com.example.demo.model.enums.UserRoles;
+import com.example.demo.model.enums.UserStatus;
 import com.example.demo.exception.UserException;
 import com.example.demo.model.Credential;
 import com.example.demo.model.User;
-import com.example.demo.utils.JwtUtil;
+import com.example.demo.security.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,7 +23,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {

@@ -24,7 +24,6 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = "rental_points")
 public class RentalPoint {
     @Id
@@ -39,7 +38,6 @@ public class RentalPoint {
     private String location;
 
     @OneToMany(mappedBy = "rentalPoint", fetch = FetchType.LAZY)
-    @ToString.Exclude
     private List<Car> cars;
 
 }

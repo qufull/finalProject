@@ -6,7 +6,7 @@ import com.example.demo.dto.UpdateUser;
 import com.example.demo.dto.UserDto;
 import com.example.demo.dto.UserRoleDto;
 import com.example.demo.dto.UserStatusDto;
-import com.example.demo.enums.UserRoles;
+import com.example.demo.model.enums.UserRoles;
 import com.example.demo.exception.RoleNotFoundException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.mapper.UserMapper;
@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {

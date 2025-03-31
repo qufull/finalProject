@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.enums.UserRoles;
+import com.example.demo.model.enums.UserRoles;
 import com.example.demo.exception.RoleNotFoundException;
 import com.example.demo.model.Role;
 import com.example.demo.repository.RoleRepository;

@@ -1,8 +1,7 @@
 package com.example.demo.dto;
 
-import com.example.demo.enums.UserRoles;
-import com.example.demo.enums.UserStatus;
-import com.example.demo.model.Role;
+import com.example.demo.model.enums.UserRoles;
+import com.example.demo.model.enums.UserStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -10,11 +9,14 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminPanelUserDto {

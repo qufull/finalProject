@@ -2,8 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.dto.EndReservationDto;
 import com.example.demo.dto.StartReservationDto;
-import com.example.demo.enums.CarStatus;
-import com.example.demo.enums.ReservationStatus;
+import com.example.demo.model.enums.CarStatus;
+import com.example.demo.model.enums.ReservationStatus;
 import com.example.demo.exception.CarNotAvailableException;
 import com.example.demo.exception.CarNotFoundException;
 import com.example.demo.exception.CredentialNotFoundException;
@@ -31,7 +31,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Optional;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReservationService {

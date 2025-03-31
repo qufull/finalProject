@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.DepositDto;
-import com.example.demo.enums.PaymentStatus;
-import com.example.demo.enums.PaymentType;
+import com.example.demo.model.enums.PaymentStatus;
+import com.example.demo.model.enums.PaymentType;
 import com.example.demo.exception.CredentialNotFoundException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.mapper.PaymentMapper;
@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BalanceService {
@@ -34,7 +33,6 @@ public class BalanceService {
             Currency currency = currencyRepository.findByCurrencyCode(dto.getCurrencyCode())
                     .orElseThrow(() ->
                     {
-                        log.error("Currency not found for code: {}", dto.getCurrencyCode());
                         return new CredentialNotFoundException("Currency not found");
                     });
 

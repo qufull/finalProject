@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import com.example.demo.enums.UserRoles;
+import com.example.demo.model.enums.UserRoles;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -9,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,13 +22,13 @@ import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "roles")
-@ToString
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +40,6 @@ public class Role {
     @Column(name = "role", columnDefinition = "user_role not null")
     private UserRoles role;
 
-    @ToString.Exclude
     @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY)
     private List<User> users;
 }

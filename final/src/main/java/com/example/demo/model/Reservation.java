@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import com.example.demo.enums.ReservationStatus;
+import com.example.demo.model.enums.ReservationStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,10 +23,10 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.Instant;
-@Data
+
+@Setter
+@Getter
 @Entity
 @Builder
 @AllArgsConstructor
@@ -55,12 +54,10 @@ public class Reservation {
     private ReservationStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @ToString.Exclude
     @JoinColumn(name = "car_id", nullable = false)
     private Car car;
 

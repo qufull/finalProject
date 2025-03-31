@@ -1,12 +1,10 @@
 package com.example.demo;
 
 import com.example.demo.dto.EndReservationDto;
-import com.example.demo.enums.CarStatus;
-import com.example.demo.enums.ReservationStatus;
+import com.example.demo.model.enums.CarStatus;
+import com.example.demo.model.enums.ReservationStatus;
 import com.example.demo.exception.CarNotAvailableException;
 import com.example.demo.exception.CarNotFoundException;
-import com.example.demo.exception.CredentialNotFoundException;
-import com.example.demo.exception.CurrencyNotFoundException;
 import com.example.demo.exception.RentalPointNotFoundException;
 import com.example.demo.exception.ReservationException;
 import com.example.demo.exception.ReservationNotFoundException;
@@ -39,9 +37,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyDouble;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

@@ -1,7 +1,7 @@
-package com.example.demo.filter;
+package com.example.demo.security.filter;
 
 import com.example.demo.service.CredentialService;
-import com.example.demo.utils.JwtUtil;
+import com.example.demo.security.utils.JwtUtil;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

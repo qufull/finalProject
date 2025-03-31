@@ -26,7 +26,6 @@ import java.time.Instant;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = "driver_licenses")
 public class DriverLicens {
     @Id
@@ -47,7 +46,6 @@ public class DriverLicens {
     private Boolean haveB = false;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 

@@ -1,8 +1,8 @@
 package com.example.demo;
 
 import com.example.demo.dto.PaymentDto;
-import com.example.demo.enums.PaymentStatus;
-import com.example.demo.enums.PaymentType;
+import com.example.demo.model.enums.PaymentStatus;
+import com.example.demo.model.enums.PaymentType;
 import com.example.demo.exception.PaymentException;
 import com.example.demo.exception.PaymentNotFoundException;
 import com.example.demo.mapper.PaymentMapper;

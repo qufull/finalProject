@@ -24,7 +24,6 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = "credentials")
 public class Credential {
     @Id
@@ -42,8 +41,8 @@ public class Credential {
     private String email;
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @ToString.Exclude
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
+
 
 }

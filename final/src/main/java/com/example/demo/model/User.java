@@ -1,11 +1,9 @@
 package com.example.demo.model;
 
-import com.example.demo.enums.UserRoles;
-import com.example.demo.enums.UserStatus;
+import com.example.demo.model.enums.UserStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -20,32 +18,28 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,7 +74,6 @@ public class User implements UserDetails {
     private UserStatus status;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @ToString.Exclude
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", nullable = false),
@@ -89,11 +82,9 @@ public class User implements UserDetails {
     private List<Role> roles;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @ToString.Exclude
     private Credential credential;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @ToString.Exclude
     private List<Reservation> reservations;
 
     @Override

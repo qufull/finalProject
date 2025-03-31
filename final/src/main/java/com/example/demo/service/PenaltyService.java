@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PenaltyService {
