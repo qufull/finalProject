@@ -1,20 +1,18 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.DepositDto;
-import com.example.demo.model.enums.PaymentStatus;
-import com.example.demo.model.enums.PaymentType;
 import com.example.demo.exception.CredentialNotFoundException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.mapper.PaymentMapper;
 import com.example.demo.model.Currency;
 import com.example.demo.model.Payment;
 import com.example.demo.model.User;
+import com.example.demo.model.enums.PaymentStatus;
+import com.example.demo.model.enums.PaymentType;
 import com.example.demo.repository.CurrencyRepository;
 import com.example.demo.repository.PaymentRepository;
 import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,13 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.exception.CarException;
-import com.example.demo.exception.CredentialException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.Credential;
 import com.example.demo.model.User;
 import com.example.demo.repository.CredentialRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

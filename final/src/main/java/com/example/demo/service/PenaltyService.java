@@ -14,10 +14,7 @@ import com.example.demo.model.User;
 import com.example.demo.repository.CarRepository;
 import com.example.demo.repository.CurrencyRepository;
 import com.example.demo.repository.PenaltyRepository;
-import com.example.demo.repository.ReservationRepository;
-import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

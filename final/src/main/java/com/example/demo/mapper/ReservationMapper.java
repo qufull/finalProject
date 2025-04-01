@@ -2,14 +2,10 @@ package com.example.demo.mapper;
 
 import com.example.demo.dto.EndReservationDto;
 import com.example.demo.dto.StartReservationDto;
-import com.example.demo.model.Car;
-import com.example.demo.model.Currency;
 import com.example.demo.model.Reservation;
-import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
-import org.mapstruct.Named;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ReservationMapper {

@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.PaymentDto;
-import com.example.demo.exception.PaymentException;
 import com.example.demo.exception.PaymentNotFoundException;
 import com.example.demo.mapper.PaymentMapper;
 import com.example.demo.model.User;
 import com.example.demo.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

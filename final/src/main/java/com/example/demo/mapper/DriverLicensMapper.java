@@ -5,7 +5,6 @@ import com.example.demo.model.DriverLicens;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
-import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface DriverLicensMapper {

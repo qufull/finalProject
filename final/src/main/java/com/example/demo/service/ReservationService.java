@@ -2,8 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.dto.EndReservationDto;
 import com.example.demo.dto.StartReservationDto;
-import com.example.demo.model.enums.CarStatus;
-import com.example.demo.model.enums.ReservationStatus;
 import com.example.demo.exception.CarNotAvailableException;
 import com.example.demo.exception.CarNotFoundException;
 import com.example.demo.exception.CredentialNotFoundException;
@@ -17,12 +15,13 @@ import com.example.demo.model.Currency;
 import com.example.demo.model.RentalPoint;
 import com.example.demo.model.Reservation;
 import com.example.demo.model.User;
+import com.example.demo.model.enums.CarStatus;
+import com.example.demo.model.enums.ReservationStatus;
 import com.example.demo.repository.CarRepository;
 import com.example.demo.repository.CurrencyRepository;
 import com.example.demo.repository.RentalPointRepository;
 import com.example.demo.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

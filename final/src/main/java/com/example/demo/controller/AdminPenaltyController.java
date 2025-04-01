@@ -3,12 +3,8 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.PenaltiesDto;
 import com.example.demo.dto.PenaltyDto;
-import com.example.demo.exception.PenaltyException;
-import com.example.demo.model.Penalty;
 import com.example.demo.service.PenaltyService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
