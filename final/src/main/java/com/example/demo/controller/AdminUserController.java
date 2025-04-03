@@ -27,7 +27,6 @@ public class AdminUserController {
     public List<AdminPanelUserDto> getUsers(@AuthenticationPrincipal User user) {
         return userService.getAdminPanelUsers(user.getId());
     }
-
     @PostMapping("/status/{id}")
     public void changeUserStatus(@PathVariable Long id, @RequestBody UserStatusDto dto) {
         userService.updateUserStatus(id, dto);

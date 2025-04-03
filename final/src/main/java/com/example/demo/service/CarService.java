@@ -10,6 +10,7 @@ import com.example.demo.model.enums.CarStatus;
 import com.example.demo.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,10 +27,10 @@ public class CarService {
         return carMapper.toDto(savedCar);
     }
 
+    @Transactional
     public AvailableCarDto update(Long id, UpdateCarDto updateCarDto) {
         Car car = carRepository.findById(id)
                     .orElseThrow(() -> new CarNotFoundException("Car not found"));
-
         carMapper.updateCarFromUpdateCar(updateCarDto, car);
         Car updatedCar = carRepository.save(car);
         return carMapper.toDto(updatedCar);
